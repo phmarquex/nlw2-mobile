@@ -1,21 +1,34 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React from 'react'
+import { StatusBar } from 'expo-status-bar'
+import { AppLoading } from 'expo'
+import AppStack from './src/routes/AppStack'
+
+import {
+    Archivo_400Regular as a4,
+    Archivo_700Bold as a7,
+    useFonts
+} from '@expo-google-fonts/archivo'
+import {
+    Poppins_400Regular as p4,
+    Poppins_600SemiBold as p6
+} from '@expo-google-fonts/poppins'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+    let [fontsLoaded] = useFonts({
+        a4,
+        a7,
+        p4,
+        p6
+    })
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+    if (!fontsLoaded) {
+        return <AppLoading />
+    } else {
+        return (
+            <>
+                <AppStack />
+                <StatusBar style="light" />
+            </>
+        )
+    }
+}
